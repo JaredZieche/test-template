@@ -1,0 +1,27 @@
+name: init
+on:
+  create:
+
+permissions:
+  contents: write
+  issues: write
+env:
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
+  
+jobs:
+  initialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: dump env
+        env:
+          ENV_CONTEXT: ${{ toJson(env) }}
+        run: echo "$ENV_CONTEXT"
+      - name: dump secrets
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+        run: echo "$SECRETS_CONTEXT"
+      - run: echo "Hello World"
